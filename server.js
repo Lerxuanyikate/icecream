@@ -31,7 +31,7 @@ app.listen(port, () => {
 app.get('/allice', async (req, res) => {
     try {
         let connection = await mysql.createConnection(dbConfig);
-        const [rows] = await connection.execute('SELECT * FROM defaultdb.cards');
+        const [rows] = await connection.execute('SELECT * FROM defaultdb.ice');
         res.json(rows);
     }   catch (err) { 
         console.error(err);
@@ -45,10 +45,10 @@ app.post('/addice', async (req, res) => {
     try {
         let connection = await mysql.createConnection(dbConfig);    
         const [result] = await connection.execute(
-            'INSERT INTO defaultdb.cards (card_name, card_pic) VALUES (?, ?)',
+            'INSERT INTO defaultdb.ice (ice_name, Ice_pic) VALUES (?, ?)',
             [ice_name, ice_pic]
         );
-        res.status(201).json({ message: 'Card '+ice_name+' added successfully'});
+        res.status(201).json({ message: 'Ice cream '+ice_name+' added successfully'});
     } catch (err) {
         console.error(err);
         res.status(500).json({ message: 'Server Error - Could not add ice cream'+ice_name });
