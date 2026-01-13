@@ -31,7 +31,7 @@ app.listen(port, () => {
 app.get('/allice', async (req, res) => {
     try {
         let connection = await mysql.createConnection(dbConfig);
-        const [rows] = await connection.execute('SELECT * FROM defaultdb.ice');
+        const [rows] = await connection.execute('SELECT * FROM defaultdb.icecream');
         res.json(rows);
     }   catch (err) { 
         console.error(err);
@@ -45,7 +45,7 @@ app.post('/addice', async (req, res) => {
     try {
         let connection = await mysql.createConnection(dbConfig);    
         const [result] = await connection.execute(
-            'INSERT INTO defaultdb.ice (ice_name, Ice_pic) VALUES (?, ?)',
+            'INSERT INTO defaultdb.icecream (ice_name, Ice_pic) VALUES (?, ?)',
             [ice_name, ice_pic]
         );
         res.status(201).json({ message: 'Ice cream '+ice_name+' added successfully'});
