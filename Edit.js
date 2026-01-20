@@ -7,9 +7,9 @@ const Edit = ({navigation, route}) => {
   return (
     <View>
       <StatusBar/>
-      <Text>Card Name:</Text>
+      <Text>Ice Name:</Text>
       <TextInput style={{borderWidth:1}} onChangeText={(text)=>setName(text)}/>
-      <Text>Card Pic URL:</Text>
+      <Text>Ice Pic URL:</Text>
       <TextInput style={{borderWidth:1}} onChangeText={(text)=>setPic(text)}/>  
       <Text> </Text>
       <Button title='Update'
@@ -18,7 +18,7 @@ const Edit = ({navigation, route}) => {
             {
             method:"PUT",
             headers:{"Content-Type":"application/json"},
-            body:JSON.stringify({card_name:name, card_pic:pic})
+            body:JSON.stringify({ice_name:name, ice_pic:pic})
             }
         )
           .then((response)=>{

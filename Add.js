@@ -7,14 +7,14 @@ const Add = ({navigation}) => {
   return (
     <View>
       <StatusBar/>
-      <Text>Card Name:</Text>
+      <Text>ice Name:</Text>
       <TextInput style={{borderWidth:1}} onChangeText={(text)=>setName(text)}/>
-      <Text>Card Pic URL:</Text>
+      <Text>ice Pic URL:</Text>
       <TextInput style={{borderWidth:1}} onChangeText={(text)=>setPic(text)}/>
       <Text> </Text>  
       <Button title='Submit'
       onPress={()=>{
-          let item = {card_name:name, card_pic:pic};
+          let item = {ice_name:name, ice_pic:pic};
           fetch("https://icecream-lux2.onrender.com",
             {
             method:"POST",
