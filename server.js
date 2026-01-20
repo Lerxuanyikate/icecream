@@ -54,3 +54,63 @@ app.post('/addice', async (req, res) => {
         res.status(500).json({ message: 'Server Error - Could not add ice cream'+ice_name });
     }       
 });
+
+//example route edit ice cream
+app.put('/editice/:id', async (req, res) => {
+    const { id } = req.params;
+    const { ice_name, ice_pic } = req.body; 
+    try {
+        let connection = await mysql.createConnection(dbConfig);    
+        const [result] = await connection.execute(
+            'UPDATE defaultdb.icecream SET ice_name = ?, ice_pic = ? WHERE ice_id = ?',
+            [ice_name, ice_pic, id]
+        );
+        res.json({ message: 'Ice cream '+ice_name+' updated successfully' });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Server Error - Could not update ice cream '+ice_name });
+    }
+});
+
+//example route delete ice cream
+app.delete('/deleteice/:id', async (req, res) => {
+    const { id } = req.params;
+    try {
+        let connection = await mysql.createConnection(dbConfig);    
+        const [result] = await connection.execute(
+            'DELETE FROM defaultdb.icecream WHERE ice_id = ?',
+            [id]
+        );
+        res.json({ message: 'Ice cream deleted successfully' });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Server Error - Could not delete ice cream' });
+    }   
+});
+
+
+//EXAMPLE ROUTE update ICE CREAM
+app.patch('/updateice/:id', async (req, res) => {
+    const { id } = req.params;
+    const { ice_name, ice_pic } = req.body;
+    try {
+        let connection = await mysql.createConnection(dbConfig);
+        const fields = [];
+        const values = [];
+        if (ice_name) {
+            fields.push('ice_name = ?');
+            values.push(ice_name);
+        }
+        if (ice_pic) {
+            fields.push('ice_pic = ?');
+            values.push(ice_pic);
+        }
+        values.push(id);
+        const sql = `UPDATE defaultdb.icecream SET ${fields.join(', ')} WHERE ice_id = ?`;
+        const [result] = await connection.execute(sql, values);
+        res.json({ message: 'Ice cream updated successfully' });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Server Error - Could not update ice cream'+ice_name });
+    }
+});
